@@ -21,8 +21,8 @@ Feature: SwagLabs E2E Tests
         Then User sees product "<product_name>"
 
         Examples:
-            | sort_option         | product_name |
-            | Name (A to Z)       | Value 2      |
-            | Name (Z to A)       | Value 2      |
-            | Price (low to high) | Value 2      |
-            | Price (high to low) | Value 2      |
+            | sort_option         | product_name                           |
+            | Name (A to Z)       | Sauce Labs Backpack                    |
+            | Name (Z to A)       | Test.allTheThings() T-Shirt (Red)      |
+            | Price (low to high) | Sauce Labs Onesie                      |
+            | Price (high to low) | Sauce Labs Fleece Jacket               |

@@ -1,37 +1,47 @@
 export class ProductPage {
-    itemListContainer(){
+    itemListContainer() {
         return $('#inventory_container');
-    };
+    }
 
-    productPageHeaderTitle(){
+    productPageHeaderTitle() {
         return $('.title');
-    };
+    }
 
-    productInventoryList(){
+    productInventoryList() {
         return $('.inventory_list').$$('.inventory_item');
-    };
+    }
 
-    productCartBadge(){
+    productCartBadge() {
         return $('.shopping_cart_badge');
-    };
+    }
 
-    sortingOptionButton(){
+    sortingOptionButton() {
         return $('.product_sort_container');
-    };
+    }
 
-    sortingOptionsValues(){
+    sortingOptionsValues() {
         return this.sortingOptionButton().$$('option');
     }
 
-    async chooseSortingOption(sortingOption){
+
+    productItemName(id) {
+        return this.productInventoryList()[id].$('.inventory_item_name');
+    }
+
+    async chooseSortingOption(sortingOption) {
         const optionList = await this.sortingOptionsValues();
 
         for (let i = 0; i < optionList.length; i++) {
             const optionName = await optionList[i].getText();
-            if (optionName === sortingOption){
+            if (optionName === sortingOption) {
                 await optionList[i].click();
             }
-            
         }
+    }
+
+    async checkProductNameByID(id, name) {
+        const productName = await this.productItemName(id);
+
+        await expect(productName).toHaveText(name);
     }
 }

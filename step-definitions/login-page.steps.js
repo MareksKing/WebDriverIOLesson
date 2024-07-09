@@ -21,16 +21,19 @@ When(/^User clicks on the Login button$/, async () => {
 });
 
 Then(/^User sees Products page$/, async () => {
-    await pages.productPage.itemListContainer().waitForDisplayed({ timeout: 10000 });
+    await pages.productPage
+        .itemListContainer()
+        .waitForDisplayed({ timeout: 10000 });
 
-    const productPageHeaderTitle = await pages.productPage.productPageHeaderTitle();
+    const productPageHeaderTitle =
+        await pages.productPage.productPageHeaderTitle();
     await expect(productPageHeaderTitle).toHaveText('Products');
 
     const productInventory = await pages.productPage.productInventoryList();
     await expect(productInventory).toBeElementsArrayOfSize(6);
 
     await pages.productPage.productCartBadge().waitForExist({
-        timeout : 10000,
-        reverse : true
-    })
+        timeout: 10000,
+        reverse: true,
+    });
 });
