@@ -14,3 +14,7 @@ When(/^User selects to sort by "([^"]*)"$/, async (sortingType) => {
 Then(/^User sees product "([^"]*)"$/, async (productName) => {
     await pages.productPage.checkProductNameByID(0, productName);
 });
+
+When(/^User sees correct "([^"]*)" and "([^"]*)"$/, async (productName, productPrice)=>{
+    await pages.productPage.checkProductPriceByID()
+})

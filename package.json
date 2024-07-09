@@ -13,6 +13,7 @@
   },
   "scripts": {
     "wdio": "wdio run ./wdio.conf.js",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "wdio:tag": "wdio run ./wdio.conf.js --cucumberOpts.tagExpression"
   }
 }

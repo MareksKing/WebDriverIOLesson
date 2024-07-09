@@ -28,6 +28,18 @@ export class ProductPage {
         return this.productInventoryList()[id].$('.inventory_item_name');
     }
 
+    productItemPriceAndCurrency(){
+        return this.productInventoryList().$$('inventory_item_price');
+    }
+
+    productItemPrice(){
+        const splitPrice = this.productItemPriceAndCurrency();
+        console.log(splitPrice);
+        return splitPrice.join('');
+    }
+
+
+
     async chooseSortingOption(sortingOption) {
         const optionList = await this.sortingOptionsValues();
 
@@ -41,7 +53,13 @@ export class ProductPage {
 
     async checkProductNameByID(id, name) {
         const productName = await this.productItemName(id);
+        
 
         await expect(productName).toHaveText(name);
+    }
+
+    async checkProductPriceByID(price){
+        const productPrice = await this.productItemPrice();
+        await expect(productPrice).toHaveText(price)
     }
 }
