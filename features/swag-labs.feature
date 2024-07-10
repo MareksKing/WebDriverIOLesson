@@ -55,3 +55,15 @@ Feature: SwagLabs E2E Tests
         Then User sees Products page
         When User opens "Sauce Labs Onesie" product
         Then User sees correct product details
+
+    @CART
+    Scenario: ADD AND REMOVE A PRODUCT FROM THE CART
+        Given User is on the SwagLabs landing page
+        When User inputs username - "standard_user"
+        And User inputs password - "secret_sauce"
+        And User clicks on the Login button
+        Then User sees Products page
+        When User clicks on a "Sauce Labs Backpack" Add to cart button
+        Then User sees the cart item count is set to "1"
+        When User clicks on the Remove button
+        Then User sees the cart item count is set to "0"

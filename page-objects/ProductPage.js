@@ -99,4 +99,35 @@ export class ProductPage {
             `//div[@class="inventory_item_name " and contains(text(), "${name}")]`,
         );
     }
+
+    async addProductToCart(name){
+        const productList = await this.productInventoryList();
+
+        for (let i = 0; i < productList.length; i++) {
+           const productName = await this.productItemName(i).getText();
+           if(productName === name){
+            await this.productInventoryList()[i].$('button[id^="add"]').click()
+           } 
+        }
+    }
+
+    shoppingCartBadge(){
+        return $('.shopping_cart_badge');
+    }
+
+    async checkCartCount(expectedCount){
+        const actualCartCount = await this.shoppingCartBadge();
+        await expect(actualCartCount).toHaveText(expectedCount);
+    }
+
+    async removeProductFromCartButton(name){
+        const productList = await this.productInventoryList();
+
+        for (let i = 0; i < productList.length; i++) {
+           const productName = await this.productItemName(i).getText();
+           if(productName === name){
+            await this.productInventoryList()[i].$('button[id^="remove"]').click()
+           } 
+        } 
+    }
 }
