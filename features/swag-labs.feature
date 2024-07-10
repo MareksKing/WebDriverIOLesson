@@ -28,19 +28,30 @@ Feature: SwagLabs E2E Tests
             | Price (low to high) | Sauce Labs Onesie                      |
             | Price (high to low) | Sauce Labs Fleece Jacket               |
 
-    @TEST
-    Scenario: DATA TABLE EXAMPLE
+    # @TEST
+    # Scenario: DATA TABLE EXAMPLE
 
+    #     Given User is on the SwagLabs landing page
+    #     When User inputs username - "standard_user"
+    #     And User inputs password - "secret_sauce"
+    #     And User clicks on the Login button
+    #     Then User sees Products page
+    #     And User sees correct "<ProductName>" and "<ProductPrice>"
+    #         Examples:
+    #         | ProductName                             | ProductPrice | 
+    #         | Sauce Labs Backpack                     | $29.99       |
+    #         | Test.allTheThings() T-Shirt (Red)       | $15.99       |            
+    #         | Sauce Labs Onesie                       | $7.99        |
+    #         | Sauce Labs Bike Light                   | $9.99        |
+    #         | Sauce Labs Both T-Shirt                 | $15.99       |
+    #         | Sauce Labs Fleece Jacket                | $49.99       |
+
+    @VALIDATE
+    Scenario: VALIDATE PRODUCT ITEM DETAILS
         Given User is on the SwagLabs landing page
         When User inputs username - "standard_user"
         And User inputs password - "secret_sauce"
         And User clicks on the Login button
         Then User sees Products page
-        And User sees correct "<ProductName>" and "<ProductPrice>"
-            | ProductName                             | ProductPrice | 
-            | Sauce Labs Backpack                     | $29.99       |
-            | Test.allTheThings() T-Shirt (Red)       | $15.99       |            
-            | Sauce Labs Onesie                       | $7.99        |
-            | Sauce Labs Bike Light                   | $9.99        |
-            | Sauce Labs Both T-Shirt                 | $15.99       |
-            | Sauce Labs Fleece Jacket                | $49.99       |
+        When User opens "Sauce Labs Onesie" product
+        Then User sees correct product details

@@ -23,22 +23,30 @@ export class ProductPage {
         return this.sortingOptionButton().$$('option');
     }
 
-
     productItemName(id) {
         return this.productInventoryList()[id].$('.inventory_item_name');
     }
 
-    productItemPriceAndCurrency(){
+    async getProductItemNameWithName(name) {
+        const productList = await this.productInventoryList();
+
+        for (let i = 0; i < productList.length; i++) {
+            const product = await productList[i].getText();
+            if (product === name) {
+                return productList[i].click();
+            }
+        }
+    }
+
+    productItemPriceAndCurrency() {
         return this.productInventoryList().$$('inventory_item_price');
     }
 
-    productItemPrice(){
+    productItemPrice() {
         const splitPrice = this.productItemPriceAndCurrency();
         console.log(splitPrice);
         return splitPrice.join('');
     }
-
-
 
     async chooseSortingOption(sortingOption) {
         const optionList = await this.sortingOptionsValues();
@@ -53,13 +61,42 @@ export class ProductPage {
 
     async checkProductNameByID(id, name) {
         const productName = await this.productItemName(id);
-        
 
         await expect(productName).toHaveText(name);
     }
 
-    async checkProductPriceByID(price){
+    async checkProductPriceByName(name, price) {
         const productPrice = await this.productItemPrice();
-        await expect(productPrice).toHaveText(price)
+        await expect(productPrice).toHaveText(price);
+    }
+
+    async getProductItemDescriptionByName(name) {
+        const productList = await this.productInventoryList();
+
+        for (let i = 0; i < productList.length; i++) {
+            const productName = await this.productItemName(i).getText();
+            if (productName === name) {
+                return await productList[i].$('.inventory_item_desc').getText();
+            }
+        }
+    }
+
+    async getProductItemPriceByName(name) {
+        const productList = await this.productInventoryList();
+
+        for (let i = 0; i < productList.length; i++) {
+            const productName = await this.productItemName(i).getText();
+            if (productName === name) {
+                return await productList[i]
+                    .$('.inventory_item_price')
+                    .getText();
+            }
+        }
+    }
+
+    getProductItemByName(name) {
+        return $(
+            `//div[@class="inventory_item_name " and contains(text(), "${name}")]`,
+        );
     }
 }
