@@ -40,24 +40,24 @@ Then(/^User sees correct product details$/, async function () {
     );
 });
 
-
-When(/^User clicks on a "([^"]*)" Add to cart button$/, async function(name) {
+When(/^User clicks on a "([^"]*)" Add to cart button$/, async function (name) {
     this.productName = name;
     await pages.productPage.addProductToCart(name);
 });
 
-Then(/^User sees the cart item count is set to "([^"]*)"$/, async (itemCount) => {
-    if (itemCount === '0'){
-        await pages.productPage.shoppingCartBadge().waitForExist({
-            timeout: 10000,
-            reverse: true,
-        })
-    } else {
-        await pages.productPage.checkCartCount(itemCount);
-    }
-})
+Then(
+    /^User sees the cart item count is set to "([^"]*)"$/,
+    async (itemCount) => {
+        if (itemCount === '0') {
+            await pages.productPage.shoppingCartBadge().waitForExist({
+                timeout: 10000,
+                reverse: true,
+            });
+        } else {
+            await pages.productPage.checkCartCount(itemCount);
+        }
+    },
+);
 When(/^User clicks on the Remove button$/, async function () {
     await pages.productPage.removeProductFromCartButton(this.productName);
-})
-
-
+});

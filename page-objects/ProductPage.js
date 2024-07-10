@@ -100,34 +100,38 @@ export class ProductPage {
         );
     }
 
-    async addProductToCart(name){
+    async addProductToCart(name) {
         const productList = await this.productInventoryList();
 
         for (let i = 0; i < productList.length; i++) {
-           const productName = await this.productItemName(i).getText();
-           if(productName === name){
-            await this.productInventoryList()[i].$('button[id^="add"]').click()
-           } 
+            const productName = await this.productItemName(i).getText();
+            if (productName === name) {
+                await this.productInventoryList()
+                    [i].$('button[id^="add"]')
+                    .click();
+            }
         }
     }
 
-    shoppingCartBadge(){
+    shoppingCartBadge() {
         return $('.shopping_cart_badge');
     }
 
-    async checkCartCount(expectedCount){
+    async checkCartCount(expectedCount) {
         const actualCartCount = await this.shoppingCartBadge();
         await expect(actualCartCount).toHaveText(expectedCount);
     }
 
-    async removeProductFromCartButton(name){
+    async removeProductFromCartButton(name) {
         const productList = await this.productInventoryList();
 
         for (let i = 0; i < productList.length; i++) {
-           const productName = await this.productItemName(i).getText();
-           if(productName === name){
-            await this.productInventoryList()[i].$('button[id^="remove"]').click()
-           } 
-        } 
+            const productName = await this.productItemName(i).getText();
+            if (productName === name) {
+                await this.productInventoryList()
+                    [i].$('button[id^="remove"]')
+                    .click();
+            }
+        }
     }
 }
