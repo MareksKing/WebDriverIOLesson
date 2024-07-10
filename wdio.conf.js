@@ -1,7 +1,7 @@
-import { error } from 'console';
-
+const { generate } = require('multiple-cucumber-html-reporter');
 const fs = require('fs');
 const path = require('path');
+const { attach } = require('wdio-cucumberjs-json-reporter');
 
 export const config = {
     //
@@ -14,7 +14,7 @@ export const config = {
     // ==================
     // Specify Test Files
     // ==================
-    // Define which test specs should run. The pattern is relative to the directory
+    // Define which test specs should :run. The pattern is relative to the directory
     // of the configuration file being run.
     //
     // The specs are defined as an array of spec files (optionally using wildcards
@@ -278,8 +278,12 @@ export const config = {
      * @param {number}             result.duration  duration of scenario in milliseconds
      * @param {object}             context          Cucumber World object
      */
-    // afterStep: function (step, scenario, result, context) {
-    // },
+    afterStep: async function (step, scenario, result, context) {
+        if(result.error){
+            const screenshot = await browser.takeScreenshot();
+            attach(screenshot, 'image/png');
+        }
+    },
     /**
      *
      * Runs after a Cucumber Scenario.
@@ -335,8 +339,15 @@ export const config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+    onComplete: function(exitCode, config, capabilities, results) {
+        generate({
+            jsonDir: '.tmp/json/',
+            reportPath: '.tmp/report/',
+            pageTitle: 'TDL Summer School 2024',
+            reportName: 'TDL Summer School 2024',
+            displayDuration: true,
+        })
+    },
     /**
      * Gets executed when a refresh happens.
      * @param {string} oldSessionId session ID of the old session

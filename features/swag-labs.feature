@@ -6,7 +6,7 @@ Feature: SwagLabs E2E Tests
     Scenario: SUCCESSFULLY LOGIN IN SWAGLABS PROFILE
         Given User is on the SwagLabs landing page
         When User inputs username - "standard_user"
-        And User inputs password - "secret_sauce"
+        And User inputs password - "secret_sauc"
         And User clicks on the Login button
         Then User sees Products page
 
