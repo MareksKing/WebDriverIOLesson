@@ -61,3 +61,7 @@ Then(
 When(/^User clicks on the Remove button$/, async function () {
     await pages.productPage.removeProductFromCartButton(this.productName);
 });
+
+When(/^User clicks on the cart button$/, async function () {
+    await pages.productPage.shoppingCartBadge().click();
+});
